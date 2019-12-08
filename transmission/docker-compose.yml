@@ -9,11 +9,11 @@ services:
       - PGID=1000
       - TZ=Europe/Istanbul
       - USER=$TRANSMISSION_USERNAME
-      - PASS=TRANSMISSION_PASSWORD
+      - PASS=$TRANSMISSION_PASSWORD
     volumes:
-      - path to data:$CONFIG_PATH
-      - path to downloads:$DOWNLOADS_PATH
-      - path to watch folder:$WATCH_PATH
+      - $CONFIG_PATH:/config
+      - $DOWNLOADS_PATH:/downloads
+      - $WATCH_PATH:/watch
     ports:
       - 51413:51413
       - 51413:51413/udp
