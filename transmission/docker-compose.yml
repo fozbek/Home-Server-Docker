@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  transmission:
+    image: linuxserver/transmission
+    container_name: transmission
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Istanbul
+      - USER=$TRANSMISSION_USERNAME
+      - PASS=TRANSMISSION_PASSWORD
+    volumes:
+      - path to data:$CONFIG_PATH
+      - path to downloads:$DOWNLOADS_PATH
+      - path to watch folder:$WATCH_PATH
+    ports:
+      - 51413:51413
+      - 51413:51413/udp
+    deploy:
+      labels:
+        traefik.port: 9091
+        traefik.docker.network: traefik-net
+        traefik.frontend.rule: Host:${HOSTNAME},www.${HOSTNAME}
+
+networks:
+  traefik-net:
+    external:
+      name: traefik-net
